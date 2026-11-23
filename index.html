@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boutiki – Créez votre page boutique avec commande WhatsApp et Orange Money</title>
+<meta name="description" content="Boutiki : une page rapide pour vendre sur WhatsApp, Facebook et TikTok. Produits, prix, commande WhatsApp, Orange Money, Moov Money, position GPS et QR code. Gratuit au Mali.">
+<meta name="theme-color" content="#0a0b1e">
+<link rel="canonical" href="https://boutiki.techmali.tech/">
+<meta property="og:type" content="website"><meta property="og:locale" content="fr_ML"><meta property="og:site_name" content="Boutiki">
+<meta property="og:title" content="Boutiki – Votre boutique tient dans un seul lien"><meta property="og:description" content="Produits, commande WhatsApp, Orange Money et GPS sur une seule page. Gratuit.">
+<meta property="og:url" content="https://boutiki.techmali.tech/"><meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%A1%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","name":"Boutiki","applicationCategory":"BusinessApplication","operatingSystem":"Web","inLanguage":"fr","description":"Page boutique pour commerçants : commande WhatsApp, paiement mobile money, GPS et QR code.","offers":{"@type":"Offer","price":"0","priceCurrency":"XOF"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Faut-il savoir programmer ?","acceptedAnswer":{"@type":"Answer","text":"Non. Vous remplissez un formulaire et votre page est en ligne en deux minutes."}},{"@type":"Question","name":"Boutiki encaisse-t-il mes paiements ?","acceptedAnswer":{"@type":"Answer","text":"Non. Vos clients paient directement sur votre numéro Orange Money ou Moov Money."}},{"@type":"Question","name":"Où mettre mon lien ?","acceptedAnswer":{"@type":"Answer","text":"Dans votre profil Facebook, TikTok, Instagram ou WhatsApp Business, ou sur un QR code imprimé."}}]}]}</script>
+<style>
+:root{--bg:#0a0b1e;--p:rgba(255,255,255,.06);--l:rgba(255,255,255,.13);--t:#eef0ff;--m:#9aa0c8;--v:#7c5cff;--c:#22e4ff;--g:#ffc233;--a:#7c5cff;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;color:var(--t);font:16px/1.55 "Space Grotesk",system-ui,sans-serif;background:radial-gradient(60rem 40rem at 85% -10%,#2a1d7a66,transparent),radial-gradient(50rem 30rem at -10% 30%,#0b5d7a55,transparent),var(--bg);min-height:100vh}
+a{color:var(--c)}h1,h2,h3{line-height:1.12;margin:0}
+.w{max-width:1040px;margin:0 auto;padding:0 18px}.col{max-width:460px;margin:0 auto;padding:16px}
+.nav{display:flex;justify-content:space-between;align-items:center;padding:16px 0}.logo{font-weight:700;font-size:20px;color:var(--t);text-decoration:none}
+.b{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:14px;padding:13px 20px;font:inherit;font-weight:700;color:#06071a;background:linear-gradient(120deg,var(--v),var(--c));cursor:pointer;text-decoration:none;width:auto}
+.b:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--c);outline-offset:2px}
+.b.o{background:var(--p);color:var(--t);border:1px solid var(--l)}.b.y{background:var(--g)}.b.w{background:#1fa855;color:#fff}.blk{display:flex;width:100%;margin-top:10px}
+.hero{display:grid;gap:36px;padding:34px 0 56px;align-items:center}
+.hero h1{font-size:clamp(34px,8vw,60px);letter-spacing:-.03em}.hero p{color:var(--m);font-size:18px;max-width:34em}
+.ph{width:min(300px,100%);margin:0 auto;padding:3px;border-radius:34px;background:conic-gradient(from var(--r,0deg),var(--v),var(--c),var(--g),var(--v));animation:sp 6s linear infinite;box-shadow:0 0 70px #7c5cff55}
+@property --r{syntax:"<angle>";inherits:false;initial-value:0deg}@keyframes sp{to{--r:360deg}}
+.ph>div{background:#0d0f2b;border-radius:31px;padding:22px 16px;text-align:center}
+.av{width:64px;height:64px;border-radius:50%;margin:0 auto 8px;display:grid;place-items:center;font-size:26px;font-weight:700;color:#06071a;background:linear-gradient(135deg,var(--a),var(--c))}
+.mini{display:block;padding:11px;margin-top:8px;border-radius:12px;font-weight:700;font-size:14px;color:#fff;background:#1fa855}
+.sec{padding:44px 0}.sec h2{font-size:clamp(26px,5vw,38px);margin-bottom:22px;letter-spacing:-.02em}
+.grid{display:grid;gap:14px}.card{background:var(--p);border:1px solid var(--l);border-radius:18px;padding:18px;backdrop-filter:blur(8px)}
+.card h3{font-size:19px;margin-bottom:6px}.card p{margin:0;color:var(--m)}
+.pr{font-size:30px;font-weight:700}.card ul{padding-left:18px;color:var(--m);margin:10px 0 0}
+details{border-bottom:1px solid var(--l);padding:14px 0}summary{cursor:pointer;font-weight:700}details p{color:var(--m);margin:8px 0 0}
+footer{padding:36px 0;color:var(--m);font-size:14px;text-align:center}
+@media(min-width:800px){.hero{grid-template-columns:1.3fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:repeat(2,1fr)}}
+@media(prefers-reduced-motion:reduce){.ph{animation:none}html{scroll-behavior:auto}}
+/* app */
+label{display:block;font-size:13px;color:var(--m);margin:10px 0 4px}
+input,textarea{width:100%;padding:11px;border-radius:12px;border:1px solid var(--l);background:#ffffff0d;color:var(--t);font:inherit}input[type=checkbox]{width:auto}input[type=color]{height:44px;padding:4px}
+.m{font-size:13px;color:var(--m);margin-top:8px}.err{color:#ff7a8a}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--l);border-radius:12px;padding:7px 11px;margin-top:7px;font-size:14px}.row button{border:0;background:none;color:#ff7a8a;font-size:16px;cursor:pointer}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}.stats b{display:block;font-size:28px}
+.hd{text-align:center;padding:10px 0 4px}.hd .av{width:84px;height:84px;font-size:34px;box-shadow:0 0 40px var(--a)}.hd h1{font-size:26px}
+.pd{display:flex;gap:10px;align-items:center;border:1px solid var(--l);border-radius:14px;padding:9px;margin-top:8px;background:var(--p)}.pd .i{flex:1;min-width:0}.pd b{display:block}.pd span{color:var(--m);font-size:14px}.pd .e{font-size:26px}
+.cmd{background:#1fa855;color:#fff;padding:9px 12px;border-radius:10px;text-decoration:none;font-size:13px;font-weight:700}
+#qr{display:grid;place-items:center;padding:14px}#qr img,#qr canvas{background:#fff;padding:10px;border-radius:12px}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin:8px 0 12px}.tabs button{flex:1;white-space:nowrap;border:1px solid var(--l);background:var(--p);color:var(--t);border-radius:12px;padding:9px;font:inherit;cursor:pointer}.tabs button[aria-selected=true]{background:linear-gradient(120deg,var(--v),var(--c));color:#06071a;font-weight:700}
+.th{width:56px;height:56px;border-radius:12px;object-fit:cover;flex:none}.row .th{width:36px;height:36px;border-radius:8px}.row .l{flex:1;min-width:0}.row .ph2{color:var(--c)}
+.ov{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:18px;background:#000a}.md{max-width:380px;width:100%;background:#0d0f2b;border:1px solid var(--l);border-radius:22px;padding:22px;text-align:center;box-shadow:0 0 60px var(--a)}.md h2{font-size:22px;margin-bottom:8px}.md p{color:var(--m);white-space:pre-line;margin:0 0 6px}
+.nav .lk{display:none;gap:16px}.nav .lk a{color:var(--m);text-decoration:none}@media(min-width:800px){.nav .lk{display:flex}}
+.bn{display:block;width:100%;height:140px;object-fit:cover;border-radius:18px;margin-top:4px}.av{overflow:hidden}.av img{width:100%;height:100%;object-fit:cover}
+</style>
+</head>
+<body>
+<main id="land" class="w">
+  <nav class="nav" aria-label="Navigation"><a class="logo" href="/">⚡ Boutiki</a><span class="lk"><a href="#f">Fonctions</a><a href="#t">Tarifs</a><a href="#q">FAQ</a></span><a class="b o" href="#compte">Se connecter</a></nav>
+  <section class="hero">
+    <div>
+      <h1>Votre boutique tient dans un seul lien</h1>
+      <p>Produits, prix, commande WhatsApp, Orange Money et position GPS sur une page rapide. Collez-la dans votre profil Facebook, TikTok ou WhatsApp.</p>
+      <p><a class="b" href="#compte">Créer ma page gratuite</a></p>
+    </div>
+    <div class="ph" aria-hidden="true"><div>
+      <div class="av">A</div><b>Aminata Pagnes</b><div style="color:var(--m);font-size:14px;margin-bottom:10px">Pagnes et bazin à Bamako</div>
+      <span class="mini">💬 Commander sur WhatsApp</span><span class="mini" style="background:var(--g);color:#06071a">💳 Orange Money</span><span class="mini" style="background:var(--p);border:1px solid var(--l)">📍 Marché de Médina-Coura</span>
+    </div></div>
+  </section>
+  <section class="sec" aria-labelledby="f"><h2 id="f">Tout ce qu'il faut pour vendre</h2>
+    <div class="grid g3">
+      <div class="card"><h3>Commande en un toucher</h3><p>Le client choisit un produit et WhatsApp s'ouvre avec le message déjà écrit.</p></div>
+      <div class="card"><h3>Paiement mobile money</h3><p>Vos numéros Orange Money et Moov Money s'affichent et se copient en un toucher.</p></div>
+      <div class="card"><h3>On vous trouve</h3><p>Position GPS, QR code à imprimer et page lisible par Google.</p></div>
+    </div>
+  </section>
+  <section class="sec" aria-labelledby="t"><h2 id="t">Tarifs</h2>
+    <div class="grid g3">
+      <div class="card"><h3>Gratuit</h3><div class="pr">0 FCFA</div><ul><li>1 page boutique</li><li>5 produits</li><li>QR code et statistiques</li></ul></div>
+      <div class="card"><h3>Pro</h3><div class="pr">1 000 FCFA<small>/mois</small></div><ul><li>Produits illimités</li><li>Sans mention Boutiki</li></ul><p class="m">Bientôt disponible</p></div>
+      <div class="card"><h3>Business</h3><div class="pr">2 500 FCFA<small>/mois</small></div><ul><li>Plusieurs pages</li><li>Domaine personnalisé</li></ul><p class="m">Bientôt disponible</p></div>
+    </div>
+  </section>
+  <section class="sec" aria-labelledby="q"><h2 id="q">Questions fréquentes</h2>
+    <details><summary>Faut-il savoir programmer ?</summary><p>Non. Vous remplissez un formulaire et votre page est en ligne en deux minutes.</p></details>
+    <details><summary>Boutiki encaisse-t-il mes paiements ?</summary><p>Non. Vos clients paient directement sur votre numéro Orange Money ou Moov Money.</p></details>
+    <details><summary>Où mettre mon lien ?</summary><p>Dans votre profil Facebook, TikTok, Instagram ou WhatsApp Business, ou sur un QR code imprimé.</p></details>
+  </section>
+  <footer>© Boutiki – un service TechMali</footer>
+</main>
+<div id="app" class="col" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+var URL_="https://zxmgwyrnfshrspplfxpf.supabase.co",KEY="sb_publishable_5I-c13DK_gRqIep_YwEBtg_g76CXbXG",DOM="@liens-mali.app";
+var sb=supabase.createClient(URL_,KEY),page=null,prods=[],pos=null,tab="";
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function digits(s){return (s||"").replace(/\D/g,"")}
+function slug(s){return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
+function say(id,m,e){var x=$(id);if(x){x.textContent=m;x.className="m"+(e?" err":"")}}
+function cp(t,m){try{navigator.clipboard.writeText(t)}catch(e){}alert(m||"Copié : "+t)}
+function share(u,t){navigator.share?navigator.share({title:t,url:u}).catch(function(){}):cp(u,"Lien copié")}
+function qr(el,u){el.innerHTML="";if(window.QRCode)new QRCode(el,{text:u,width:170,height:170})}
+function meta(sel,attr,val){var m=document.querySelector(sel);if(!m){m=document.createElement(sel.indexOf("link")==0?"link":"meta");var k=sel.match(/\[(\w+)="([^"]+)"\]/);m.setAttribute(k[1],k[2]);document.head.appendChild(m)}m.setAttribute(attr,val)}
+function seg(){var s=location.pathname.replace(/^\/|\/$/g,"").split("/")[0];return /\.\w+$/.test(s)?"":s}
+function slugUrl(){return new URLSearchParams(location.search).get("p")||seg()}
+function pubUrl(s){return location.origin+"/"+s}
+function route(){
+  var s=slugUrl(),app=$("app"),land=$("land");
+  if(s){land.hidden=true;app.hidden=false;showPublic(s)}
+  else if(location.hash==="#admin"){land.hidden=true;app.hidden=false;adminPage()}
+  else if(location.hash==="#compte"){land.hidden=true;app.hidden=false;start()}
+  else{land.hidden=false;app.hidden=true}
+}
+window.addEventListener("hashchange",route);route();
+
+async function showPublic(s){
+  var app=$("app"),r=await sb.from("lp_pages_publiques").select("*").eq("slug",s).maybeSingle();
+  if(!r.data){document.title="Page introuvable – Boutiki";meta('meta[name="robots"]',"content","noindex");app.innerHTML='<div class="card"><h2>Page introuvable</h2><p class="m">Ce lien n\'existe pas ou a changé.</p><a class="b blk" href="/">Créer ma page</a></div>';return}
+  var d=r.data,pr=(await sb.from("lp_produits").select("*").eq("page_id",d.id).order("position")).data||[],wa=digits(d.whatsapp),url=pubUrl(d.slug);
+  sb.rpc("lp_track",{p_slug:s});
+  var ttl=d.nom+(d.ville?" – "+d.ville:"")+" | Boutiki",desc=(d.description||"Boutique de "+d.nom+" sur Boutiki. Commandez sur WhatsApp.").slice(0,155);
+  document.title=ttl;document.documentElement.style.setProperty("--a",d.couleur);
+  meta('meta[name="description"]',"content",desc);meta('link[rel="canonical"]',"href",url);
+  meta('meta[property="og:title"]',"content",ttl);meta('meta[property="og:description"]',"content",desc);meta('meta[property="og:url"]',"content",url);if(d.banniere_url||d.logo_url)meta('meta[property="og:image"]',"content",d.banniere_url||d.logo_url);
+  var ld={"@context":"https://schema.org","@type":"Store",name:d.nom,description:desc,url:url,telephone:wa?"+"+wa:undefined,address:d.ville?{"@type":"PostalAddress",streetAddress:d.ville,addressCountry:"ML"}:undefined,geo:d.lat!=null?{"@type":"GeoCoordinates",latitude:d.lat,longitude:d.lng}:undefined};
+  var sc=document.createElement("script");sc.type="application/ld+json";sc.textContent=JSON.stringify(ld);document.head.appendChild(sc);
+  var map=d.lat!=null?"https://www.google.com/maps?q="+d.lat+","+d.lng:(d.ville?"https://www.google.com/maps/search/"+encodeURIComponent(d.ville):"");
+  var h=(d.banniere_url?'<img class="bn" alt="" src="'+esc(d.banniere_url)+'">':'')+'<header class="hd"><div class="av">'+(d.logo_url?'<img alt="" src="'+esc(d.logo_url)+'">':esc(d.nom.charAt(0).toUpperCase()))+'</div><h1>'+esc(d.nom)+'</h1><p class="m">'+esc(d.description)+'</p></header><main>';
+  if(wa)h+='<a class="b w blk" target="_blank" rel="noopener" href="https://wa.me/'+wa+'?text='+encodeURIComponent("Bonjour "+d.nom+", je voudrais commander.")+'">💬 Commander sur WhatsApp</a><a class="b o blk" href="tel:+'+wa+'">📞 Appeler</a>';
+  if(d.orange_money)h+='<button class="b y blk" data-n="'+esc(d.orange_money)+'">💳 Orange Money : '+esc(d.orange_money)+'</button>';
+  if(d.moov_money)h+='<button class="b y blk" data-n="'+esc(d.moov_money)+'">💳 Moov Money : '+esc(d.moov_money)+'</button>';
+  if(map)h+='<a class="b o blk" target="_blank" rel="noopener" href="'+map+'">📍 '+(d.ville?esc(d.ville):"Localisation")+'</a>';
+  if(pr.length){h+='<h2 style="font-size:20px;margin-top:22px">Catalogue</h2>';pr.forEach(function(x){h+='<article class="pd">'+(x.image_url?'<img class="th" alt="" loading="lazy" src="'+esc(x.image_url)+'">':'<div class="e">'+esc(x.emoji||"🛍️")+'</div>')+'<div class="i"><b>'+esc(x.nom)+'</b><span>'+esc(x.prix)+'</span></div>'+(wa?'<a class="cmd" target="_blank" rel="noopener" href="https://wa.me/'+wa+'?text='+encodeURIComponent("Bonjour, je veux commander : "+x.nom+" "+(x.prix||""))+'">Commander</a>':"")+'</article>'})}
+  h+='<button class="b o blk" id="sh">Partager cette boutique</button><details><summary class="m">QR code de la boutique</summary><div id="qr"></div></details></main><footer>Créé avec <a href="/">Boutiki</a></footer>';
+  app.innerHTML=h;if(d.annonce_titre||d.annonce_texte)ann(d);
+  [].forEach.call(app.querySelectorAll("[data-n]"),function(b){b.onclick=function(){cp(b.dataset.n,"Numéro copié : "+b.dataset.n)}});
+  $("sh").onclick=function(){share(url,d.nom)};
+  app.querySelector("details").ontoggle=function(){if(this.open)qr($("qr"),url)};
+}
+
+function ann(d){var k="ann:"+d.slug+":"+(d.annonce_titre||"")+(d.annonce_texte||"");try{if(localStorage.getItem(k))return}catch(e){}
+var o=document.createElement("div");o.className="ov";o.setAttribute("role","dialog");o.setAttribute("aria-modal","true");
+o.innerHTML='<div class="md"><h2>📢 '+esc(d.annonce_titre||"Annonce")+'</h2><p>'+esc(d.annonce_texte||"")+'</p><button class="b blk" id="ax1">Voir la boutique</button></div>';
+document.body.appendChild(o);function x(){o.remove();try{localStorage.setItem(k,"1")}catch(e){}}$("ax1").onclick=x;o.onclick=function(e){if(e.target===o)x()};$("ax1").focus()}
+async function up(f,uid,mx){if(!/^image\//.test(f.type))throw new Error("Choisissez une image");
+var im=await createImageBitmap(f),k=Math.min(1,(mx||800)/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);
+var b=await new Promise(function(r){c.toBlob(r,"image/jpeg",.82)}),p=uid+"/"+Date.now()+".jpg",r=await sb.storage.from("produits").upload(p,b,{contentType:"image/jpeg"});
+if(r.error)throw r.error;return{url:sb.storage.from("produits").getPublicUrl(p).data.publicUrl,path:p}}
+function imgRow(k,u){return u?'<div class="row"><img class="th" alt="" src="'+esc(u)+'"><span class="l">Image enregistrée</span><button data-x="'+k+'" aria-label="Retirer">✕</button></div>':''}
+async function adminPage(){
+var app=$("app"),nv='<div class="nav"><a class="logo" href="/">⚡ Boutiki</a><a class="b o" href="#compte">Ma boutique</a></div>',s=(await sb.auth.getSession()).data.session;
+if(!s){app.innerHTML=nv+'<div class="card"><p class="m">Connectez-vous d\'abord.</p><a class="b blk" href="#compte">Se connecter</a></div>';return}
+if((await sb.rpc("lp_is_admin")).data!==true){
+  app.innerHTML=nv+'<div class="card"><h2>Administration</h2><p class="m">Réservé à l\'administrateur de Boutiki.</p><label for="ac">Code administrateur</label><input id="ac" type="password" autocomplete="off"><button class="b blk" id="ab">Valider</button><div id="amg" class="m"></div></div>';
+  $("ab").onclick=async function(){var r=await sb.rpc("lp_claim_admin",{p_code:$("ac").value.trim()});r.data===true?adminPage():say("amg","Code invalide, ou administrateur déjà défini",1)};return}
+var r=await sb.rpc("lp_admin_pages");if(r.error)return app.innerHTML=nv+'<div class="card err">'+esc(r.error.message)+'</div>';
+var L=r.data||[],n=function(f){return L.filter(f).length},v7=L.reduce(function(a,x){return a+x.vues7},0);
+app.innerHTML=nv+'<h2 style="margin:6px 0 10px">Administration</h2><div class="stats"><div class="card"><b>'+L.length+'</b><span class="m">boutiques</span></div><div class="card"><b>'+v7+'</b><span class="m">visites sur 7 jours</span></div><div class="card"><b>'+n(function(x){return x.plan!=="gratuit"})+'</b><span class="m">plans payants</span></div><div class="card"><b>'+n(function(x){return x.suspendue})+'</b><span class="m">suspendues</span></div></div><input id="aq" placeholder="Rechercher une boutique…" aria-label="Rechercher"><div id="al"></div><div id="aer" class="m"></div>';
+function draw(){var q=slug($("aq").value||"").replace(/-/g,"");
+  $("al").innerHTML=L.filter(function(x){return !q||slug(x.nom+x.slug).replace(/-/g,"").indexOf(q)>=0}).map(function(x){return'<div class="card" style="margin-top:10px"><h3>'+esc(x.nom)+(x.suspendue?' <span class="err">(suspendue)</span>':'')+'</h3><p class="m"><a target="_blank" rel="noopener" href="'+esc(pubUrl(x.slug))+'">/'+esc(x.slug)+'</a> · '+esc(x.ville||"–")+' · '+new Date(x.created_at).toLocaleDateString("fr-FR")+'</p><p class="m">'+x.produits+' produits · '+x.vues7+' visites (7 j) · '+x.vues+' au total</p><label for="p'+x.id+'">Plan</label><select id="p'+x.id+'" data-id="'+x.id+'" style="width:100%;padding:11px;border-radius:12px;border:1px solid var(--l);background:#0d0f2b;color:var(--t);font:inherit">'+["gratuit","pro","business"].map(function(p){return'<option'+(p===x.plan?" selected":"")+'>'+p+'</option>'}).join("")+'</select><button class="b '+(x.suspendue?'':'o ')+'blk" data-s="'+x.id+'">'+(x.suspendue?"Réactiver la boutique":"Suspendre la boutique")+'</button></div>'}).join("")||'<p class="m">Aucune boutique.</p>';
+  function sv(id,p,su){sb.rpc("lp_admin_set",{p_id:id,p_plan:p,p_susp:su}).then(function(r){r.error?say("aer",r.error.message,1):adminPage()})}
+  [].forEach.call($("al").querySelectorAll("select"),function(e){e.onchange=function(){var x=L.filter(function(y){return y.id===e.dataset.id})[0];sv(x.id,e.value,x.suspendue)}});
+  [].forEach.call($("al").querySelectorAll("[data-s]"),function(b){b.onclick=function(){var x=L.filter(function(y){return y.id===b.dataset.s})[0];if(!x.suspendue&&!confirm("Suspendre « "+x.nom+" » ? Sa page deviendra introuvable."))return;sv(x.id,x.plan,!x.suspendue)}})}
+$("aq").oninput=draw;draw()}
+async function start(){var s=(await sb.auth.getSession()).data.session;s?dash(s.user):login()}
+function login(){
+  $("app").innerHTML='<div class="nav"><a class="logo" href="/">⚡ Boutiki</a></div><div class="card"><h2>Ma page boutique</h2><p class="m">Connectez-vous ou créez votre compte avec votre numéro.</p><label for="tel">Numéro (avec indicatif)</label><input id="tel" inputmode="tel" placeholder="22370000000"><label for="pw">Mot de passe (6 caractères min.)</label><input id="pw" type="password"><button class="b blk" id="li">Se connecter</button><button class="b o blk" id="su">Créer mon compte</button><div id="msg" class="m"></div><p class="m">Notez bien votre mot de passe : il ne peut pas être récupéré par SMS.</p></div>';
+  function cred(){var t=digits($("tel").value);if(t.length<8){say("msg","Numéro invalide",1);return null}if($("pw").value.length<6){say("msg","Mot de passe trop court",1);return null}return{email:t+DOM,password:$("pw").value}}
+  $("li").onclick=async function(){var c=cred();if(!c)return;var r=await sb.auth.signInWithPassword(c);r.error?say("msg","Numéro ou mot de passe incorrect",1):start()};
+  $("su").onclick=async function(){var c=cred();if(!c)return;var r=await sb.auth.signUp(c);if(r.error)return say("msg",r.error.message,1);r.data.session?start():say("msg","Compte créé, mais la connexion automatique a échoué. Réessayez avec « Se connecter ».",1)};
+}
+async function dash(u){
+  page=(await sb.from("lp_pages").select("*").eq("owner_id",u.id).maybeSingle()).data;
+  prods=page?((await sb.from("lp_produits").select("*").eq("page_id",page.id).order("position")).data||[]):[];
+  pos=page&&page.lat!=null?{lat:+page.lat,lng:+page.lng}:null;
+  var tot=0,sem=0,adm=(await sb.rpc("lp_is_admin")).data===true;
+  if(page){
+    tot=(await sb.from("lp_vues").select("*",{count:"exact",head:true}).eq("page_id",page.id)).count||0;
+    sem=(await sb.from("lp_vues").select("*",{count:"exact",head:true}).eq("page_id",page.id).gte("created_at",new Date(Date.now()-7*864e5).toISOString())).count||0;
+  }
+  var p=page||{nom:"",slug:"",description:"",whatsapp:"",orange_money:"",moov_money:"",ville:"",show_map:false,couleur:"#7c5cff"},link=page?pubUrl(page.slug):"";
+  var h='<div class="nav"><a class="logo" href="/">⚡ Boutiki</a>\'+(adm?\'<a class="b o" href="#admin">Admin</a>\':\'\')+\'<button class="b o" id="lo">Déconnexion</button></div><div class="tabs" role="tablist"><button data-t="a">Accueil</button><button data-t="b">Boutique</button><button data-t="p">Produits</button><button data-t="n">Annonce</button></div>';
+  h+='<section data-t="a">';if(page)h+='<div class="stats"><div class="card"><b>'+sem+'</b><span class="m">visites sur 7 jours</span></div><div class="card"><b>'+tot+'</b><span class="m">visites au total</span></div></div><div class="card"><h3>Mon lien</h3><p class="m"><a href="'+esc(link)+'" target="_blank" rel="noopener">'+esc(link)+'</a></p><button class="b blk" id="cl">Copier</button><button class="b w blk" id="wsh">Envoyer sur WhatsApp</button><details><summary class="m">QR code à imprimer</summary><div id="qr"></div></details></div></section>';
+  h+='<section data-t="b"><div class="card"><h3>Ma boutique</h3><label for="nom">Nom de la boutique</label><input id="nom" value="'+esc(p.nom)+'"><label for="sl">Nom du lien</label><input id="sl" value="'+esc(p.slug)+'"><label for="de">Description</label><textarea id="de" rows="2" maxlength="300">'+esc(p.description)+'</textarea><label for="wa">WhatsApp (avec indicatif)</label><input id="wa" value="'+esc(p.whatsapp)+'" inputmode="tel"><label for="om">Orange Money</label><input id="om" value="'+esc(p.orange_money)+'"><label for="mo">Moov Money</label><input id="mo" value="'+esc(p.moov_money)+'"><label for="vi">Adresse / quartier</label><input id="vi" value="'+esc(p.ville)+'"><button class="b y blk" id="ge">📍 Utiliser ma position actuelle</button><div id="gs" class="m">'+(pos?"✅ Position enregistrée":"")+'</div><label><input type="checkbox" id="sm" '+(p.show_map?"checked":"")+'> Afficher ma localisation sur ma page</label><label for="co">Couleur</label><input id="co" type="color" value="'+esc(p.couleur)+'">\'+(page?\'<label for="lg">Logo (carré conseillé)</label>\'+imgRow("logo",page.logo_url)+\'<input id="lg" type="file" accept="image/*"><label for="bn">Bannière (image large)</label>\'+imgRow("banniere",page.banniere_url)+\'<input id="bn" type="file" accept="image/*"><div id="im" class="m"></div>\':\'<p class="m">Enregistrez d\\\'abord la boutique pour ajouter un logo et une bannière.</p>\')+\'<button class="b blk" id="sv">Enregistrer</button><div id="msg" class="m"></div></div></section>';
+  h+='<section data-t="p"><div class="card"><h3>Produits</h3>'+(page?'<div id="pl"></div><div style="display:flex;gap:6px;margin-top:10px"><input id="ne" placeholder="😀" style="width:56px" maxlength="2" aria-label="Emoji"><input id="nn" placeholder="Produit" aria-label="Produit"><input id="np" placeholder="Prix" style="width:100px" aria-label="Prix"></div><label for="nf">Photo du produit (optionnelle, redimensionnée automatiquement)</label><input id="nf" type="file" accept="image/*"><button class="b blk" id="ap">+ Ajouter le produit</button><div id="pm" class="m"></div>':'<p class="m">Enregistrez d\'abord votre boutique.</p>')+'</div></section><section data-t="n">'+(page?'<div class="card"><h3>Fenêtre d\'annonce</h3><p class="m">S\'affiche à l\'ouverture de votre boutique, une seule fois par visiteur et par annonce.</p><label><input type="checkbox" id="an"> Activer l\'annonce</label><label for="at">Titre</label><input id="at" maxlength="80"><label for="ax">Message</label><textarea id="ax" rows="4" maxlength="400"></textarea><button class="b blk" id="sa">Enregistrer l\'annonce</button><div id="am" class="m"></div></div>':'<div class="card"><p class="m">Enregistrez d\'abord votre boutique.</p></div>')+'</section>';
+  $("app").innerHTML=h;
+  function show(t){tab=t;[].forEach.call($("app").querySelectorAll("section[data-t]"),function(e){e.hidden=e.dataset.t!==t});[].forEach.call($("app").querySelectorAll(".tabs button"),function(b){b.setAttribute("aria-selected",b.dataset.t===t)})}
+  [].forEach.call($("app").querySelectorAll(".tabs button"),function(b){b.onclick=function(){show(b.dataset.t)}});show(page?(tab||"a"):"b");
+  $("lo").onclick=async function(){await sb.auth.signOut();login()};
+  if(page){
+    $("cl").onclick=function(){cp(link,"Lien copié")};
+    $("wsh").onclick=function(){window.open("https://wa.me/?text="+encodeURIComponent("Ma boutique en ligne : "+link),"_blank")};
+    $("app").querySelector("details").ontoggle=function(){if(this.open)qr($("qr"),link)};
+  }
+  $("ge").onclick=function(){
+    if(!navigator.geolocation)return say("gs","Non disponible",1);say("gs","Recherche…");
+    navigator.geolocation.getCurrentPosition(function(r){pos={lat:+r.coords.latitude.toFixed(6),lng:+r.coords.longitude.toFixed(6)};say("gs","✅ Position trouvée : pensez à enregistrer")},function(){say("gs","Position refusée. Écrivez l'adresse.",1)},{enableHighAccuracy:true,timeout:15000});
+  };
+  $("sv").onclick=async function(){
+    var n=$("nom").value.trim(),s=slug($("sl").value||n);if(!n)return say("msg","Entrez le nom",1);if(s.length<3)return say("msg","Nom du lien trop court (3 min.)",1);
+    var row={owner_id:u.id,slug:s,nom:n,description:$("de").value,whatsapp:digits($("wa").value),orange_money:$("om").value,moov_money:$("mo").value,ville:$("vi").value,show_map:$("sm").checked,couleur:$("co").value,lat:pos?pos.lat:null,lng:pos?pos.lng:null};
+    var r=page?await sb.from("lp_pages").update(row).eq("id",page.id):await sb.from("lp_pages").insert(row);
+    if(r.error)return say("msg",r.error.code==="23505"?"Ce nom de lien est déjà pris":r.error.message,1);
+    dash(u);
+  };
+  if(page){
+    var pl=$("pl");pl.innerHTML=prods.map(function(x){return'<div class="row">'+(x.image_url?'<img class="th" alt="" src="'+esc(x.image_url)+'">':'')+'<span class="l">'+esc(x.emoji||"🛍️")+" "+esc(x.nom)+" – "+esc(x.prix)+'</span><button class="ph2" data-ph="'+x.id+'" aria-label="Changer la photo">📷</button><button data-i="'+x.id+'" aria-label="Supprimer">✕</button></div>'}).join("")||'<p class="m">Aucun produit : ajoutez le premier.</p>';
+    function byId(id){return prods.filter(function(x){return x.id===id})[0]}
+    [].forEach.call(pl.querySelectorAll("[data-i]"),function(b){b.onclick=async function(){if(!confirm("Supprimer ce produit ?"))return;var x=byId(b.dataset.i);var r=await sb.from("lp_produits").delete().eq("id",b.dataset.i);if(r.error)return say("pm",r.error.message,1);if(x&&x.image_path)sb.storage.from("produits").remove([x.image_path]);dash(u)}});
+    [].forEach.call(pl.querySelectorAll("[data-ph]"),function(b){b.onclick=function(){var f=document.createElement("input");f.type="file";f.accept="image/*";f.onchange=async function(){if(!f.files[0])return;say("pm","Envoi de la photo…");try{var x=byId(b.dataset.ph),m=await up(f.files[0],u.id),r=await sb.from("lp_produits").update({image_url:m.url,image_path:m.path}).eq("id",x.id);if(r.error)throw r.error;if(x.image_path)sb.storage.from("produits").remove([x.image_path]);dash(u)}catch(e){say("pm",e.message||"Échec de l'envoi",1)}};f.click()}});
+    $("ap").onclick=async function(){
+      var n=$("nn").value.trim();if(!n)return say("pm","Entrez le nom du produit",1);
+      if(page.plan==="gratuit"&&prods.length>=5)return say("pm","Le plan gratuit est limité à 5 produits.",1);
+      var pr=$("np").value.trim();if(/^\d+$/.test(pr))pr=Number(pr).toLocaleString("fr-FR")+" FCFA";
+      var row={page_id:page.id,emoji:$("ne").value||"🛍️",nom:n,prix:pr,position:prods.length};
+      try{var f=$("nf").files[0];if(f){say("pm","Envoi de la photo…");var m=await up(f,u.id);row.image_url=m.url;row.image_path=m.path}
+      var r=await sb.from("lp_produits").insert(row);if(r.error)throw r.error;dash(u)}catch(e){say("pm",e.message||"Échec",1)}
+    };
+    $("an").checked=!!page.annonce_actif;$("at").value=page.annonce_titre||"";$("ax").value=page.annonce_texte||"";
+    $("sa").onclick=async function(){var r=await sb.from("lp_pages").update({annonce_actif:$("an").checked,annonce_titre:$("at").value.trim(),annonce_texte:$("ax").value.trim()}).eq("id",page.id);r.error?say("am",r.error.message,1):say("am","✅ Annonce enregistrée")};
+    [["lg","logo"],["bn","banniere"]].forEach(function(p){$(p[0]).onchange=async function(){var f=this.files[0];if(!f)return;say("im","Envoi…");try{var m=await up(f,u.id,p[1]=="logo"?400:1400),o=page[p[1]+"_path"],c={};c[p[1]+"_url"]=m.url;c[p[1]+"_path"]=m.path;var r=await sb.from("lp_pages").update(c).eq("id",page.id);if(r.error)throw r.error;if(o)sb.storage.from("produits").remove([o]);dash(u)}catch(e){say("im",e.message||"Échec de l'envoi",1)}}});
+    [].forEach.call($("app").querySelectorAll("[data-x]"),function(b){b.onclick=async function(){var k=b.dataset.x,o=page[k+"_path"],c={};c[k+"_url"]=null;c[k+"_path"]=null;var r=await sb.from("lp_pages").update(c).eq("id",page.id);if(r.error)return say("im",r.error.message,1);if(o)sb.storage.from("produits").remove([o]);dash(u)}});
+  }
+}
+</script>
+</body>
+</html>
