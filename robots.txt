@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://boutiki.techmali.tech/sitemap.xml
