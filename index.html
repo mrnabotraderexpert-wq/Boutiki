@@ -283,6 +283,26 @@ body[data-theme=clair] .cb,body[data-theme=sable] .cb{background:var(--bg);backg
 }
 @media(max-width:480px){#land .bk-logo b{font-size:26px}#land .bk-lg{width:38px;height:44px}#land .bk-sm{padding:10px 12px;font-size:12.5px}#land .bk-plan ul{max-width:100%}#land .bk-deco{width:60px;height:56px;top:24px}#land .bk-h2::before,#land .bk-h2::after{flex-basis:30px}}
 @media(prefers-reduced-motion:reduce){#land .bk-track{scroll-behavior:auto}#land .bk-btn{transition:none}}
+
+/* ===== option salon : catalogue + rendez-vous ===== */
+.sl h2{font-size:18px;margin:22px 0 10px}
+.sl-ch,.sl-days,.sl-sl{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}.sl-sl{flex-wrap:wrap;overflow:visible}
+.sl-ch button,.sl-days button,.sl-sl button{flex:none;min-height:44px;border:1px solid var(--l);background:var(--p);color:var(--t);border-radius:12px;padding:10px 14px;font:inherit;cursor:pointer}
+.sl-days button{display:grid;text-align:center;min-width:58px;padding:6px 8px}.sl-days small{font-size:11px;color:var(--m)}.sl-days b{font-size:18px}
+.sl-on{background:var(--ac,var(--c))!important;color:var(--on,#06101f)!important;border-color:transparent!important}.sl-on small{color:inherit!important}
+.sl-ch button:disabled,.sl-days button:disabled,.sl-sl button:disabled{opacity:.4;cursor:not-allowed}.sl-x{text-decoration:line-through}
+.sl-g{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.sl-m{display:block;border:1px solid var(--l);background:var(--p);color:var(--t);border-radius:16px;padding:0 0 10px;font:inherit;text-align:left;cursor:pointer;overflow:hidden}
+.sl-m img,.sl-ph{display:block;width:100%;aspect-ratio:1;object-fit:cover;background:#ffffff10}.sl-ph{display:grid;place-items:center;font-size:30px}
+.sl-m b,.sl-m span{display:block;padding:0 10px}.sl-m b{margin-top:8px}.sl-m span{font-size:13px;color:var(--m)}
+.sl-o{display:flex;align-items:center;gap:10px;border:1px solid var(--l);border-radius:14px;padding:12px;margin:8px 0 0;background:var(--p);color:var(--t);font-size:15px}.sl-o input{width:auto;min-height:0}
+.sl-rp{margin-top:10px}.sl-fi{max-height:92vh;overflow:auto;text-align:left}
+.sl-gal{display:flex;gap:8px;overflow-x:auto;scroll-snap-type:x mandatory;margin-bottom:12px}.sl-gal img{flex:none;width:100%;aspect-ratio:1;object-fit:cover;scroll-snap-align:center;border-radius:14px;cursor:zoom-in}
+.sl-gal img.sl-full{position:fixed;inset:0;z-index:70;height:100%;aspect-ratio:auto;object-fit:contain;background:#000;border-radius:0;cursor:zoom-out}
+.sl-nv{display:flex;gap:8px;margin-bottom:10px}.sl-nv .b{padding:0 16px}.sl-nv input{flex:1}
+.sl-ag{padding:14px}.sl-r{display:flex;justify-content:space-between;align-items:center;gap:8px}.sl-b{color:#fff;font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px}
+.sl-ac{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.sl-a{border:1px solid var(--l);background:var(--p);color:var(--t);border-radius:99px;padding:8px 14px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none}.sl-a.sl-n{color:#ef4444}
+.sl-hr{flex-wrap:wrap}.sl-hr label{flex:1 0 100%;margin:0 0 4px}.sl-hr input[type=time]{flex:1 1 22%;min-width:0;min-height:42px;padding:6px 4px}
 </style>
 </head>
 <body>
@@ -505,6 +525,145 @@ function route(){
   else if(location.hash==="#offres"){land.hidden=true;app.hidden=false;offresPage()}
   else if(location.hash==="#compte"){land.hidden=true;app.hidden=false;start()}
   else{land.hidden=false;app.hidden=true}
+}
+/* ===== OPTION SALON : catalogue + rendez-vous (Supabase BOUTIKI) ===== */
+var SL_BK="boutiki-catalogue",SL_TZ="Africa/Bamako",SL_J=[1,2,3,4,5,6,0],SL_JN=["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
+var SL_ERR={salon_introuvable:"Salon introuvable",service_invalide:"Service indisponible",modele_invalide:"Modèle indisponible",nom_invalide:"Entrez votre nom",telephone_invalide:"Numéro de téléphone invalide",creneau_indisponible:"Ce créneau vient d'être pris : choisissez-en un autre",trop_de_reservations:"Trop de réservations, réessayez plus tard",lien_invalide:"Lien invalide",deja_traite:"Ce rendez-vous ne peut plus être annulé",delai_depasse:"Délai d'annulation dépassé : contactez le salon",montant_invalide:"Montant invalide",limite_modeles:"Limite de 60 modèles atteinte",limite_photos:"Limite de 5 photos atteinte",limite_categories:"Limite de 10 catégories atteinte",statut_invalide:"Changement de statut impossible"};
+var SL_ST={en_attente:["En attente","#f5a43c"],confirme:["Confirmé","#1fa855"],honore:["Honoré","#3b82f6"],annule:["Annulé","#8a93ab"],absent:["Absent","#ef4444"]};
+function slErr(e){var m=(e&&e.message)||String(e||""),k=Object.keys(SL_ERR).filter(function(x){return m.indexOf(x)>=0})[0];return k?SL_ERR[k]:(m||"Erreur")}
+function slUrl(p){return sb.storage.from(SL_BK).getPublicUrl(p).data.publicUrl}
+function fcfa(n){return Number(n||0).toLocaleString("fr-FR")+" FCFA"}
+function hm(m){return m>=60?Math.floor(m/60)+"h"+(m%60?String(m%60).padStart(2,"0"):""):m+" min"}
+function fdt(i){return new Date(i).toLocaleString("fr-FR",{timeZone:SL_TZ,weekday:"long",day:"numeric",month:"long",hour:"2-digit",minute:"2-digit"})}
+function fh(i){return new Date(i).toLocaleTimeString("fr-FR",{timeZone:SL_TZ,hour:"2-digit",minute:"2-digit"})}
+function slToday(){return new Date().toLocaleDateString("en-CA",{timeZone:SL_TZ})}
+function slAdd(s,n){var d=new Date(s+"T00:00:00Z");d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)}
+function wnum(t){var v=digits(t);return v.length===8?"223"+v:v}
+function slThumb(p){return p?'<img class="th" loading="lazy" decoding="async" alt="" src="'+esc(slUrl(p))+'">':""}
+
+/* ---------- Page publique du salon ---------- */
+var _sp=showPublic;
+showPublic=async function(s){await _sp(s);try{await salonPublic(s)}catch(e){console.error(e)}};
+async function salonPublic(s){
+  var A=$("app"),S=(await sb.rpc("boutiki_salon",{p_slug:s})).data,m=A.querySelector("main");if(!S||!m)return;
+  var C=(await sb.rpc("boutiki_catalogue",{p_slug:s})).data,wa=digits(S.whatsapp),cats=C?C.categories:[],mods=C?C.modeles:[],svc=S.services,
+      open=S.horaires.map(function(h){return h.jour}),st={svc:null,mod:null,day:null,slot:null},seq=0;
+  [].forEach.call(m.querySelectorAll(".ch,.pg"),function(e){e.style.display="none"});
+  var w=m.querySelector("a.w");if(w&&wa){w.textContent="Écrire sur WhatsApp";w.href="https://wa.me/"+wa+"?text="+encodeURIComponent("Bonjour "+S.nom+", j'ai une question.")}
+  var tar=S.rdv_payant?"Rendez-vous : "+fcfa(S.frais_rdv)+" (à régler au salon)":"Réservation gratuite";
+  var h='';
+  if(mods.length)h+='<section class="sl"><h2>Catalogue</h2><div class="sl-ch" id="sl-ch"><button class="sl-on" data-c="">Tout</button>'+cats.map(function(c){return'<button data-c="'+c.id+'">'+esc(c.nom)+'</button>'}).join("")+'</div><div class="sl-g" id="sl-g"></div></section>';
+  h+='<section class="sl" id="rdv"><h2>Sélectionner un service</h2><div id="sl-sv">'+svc.map(function(x){return'<label class="sl-o"><input type="radio" name="slsv" value="'+x.id+'"> <span>'+esc(x.nom)+' • '+hm(x.duree)+' • '+fcfa(x.prix)+'</span></label>'}).join("")+'</div><div id="sl-mod"></div><h2>Choisir une date</h2><div class="sl-days" id="sl-days"></div><h2>Créneaux disponibles</h2><div class="sl-sl" id="sl-sl"><p class="m">Choisissez un service et une date.</p></div><h2>Vos informations</h2><label for="sl-n">Nom</label><input id="sl-n" maxlength="80" autocomplete="name"><label for="sl-p">Téléphone</label><input id="sl-p" inputmode="tel" autocomplete="tel" placeholder="+223 70 00 00 00"><p class="m"><b>'+esc(tar)+'</b></p><button class="b blk" id="sl-ok">Confirmer le rendez-vous</button><div id="sl-msg" class="m"></div></section>';
+  var acts=m.querySelector(".acts");if(!svc.length)h='<p class="m">Les rendez-vous ne sont pas encore ouverts.</p>';
+  if(acts){acts.insertAdjacentHTML("afterbegin",svc.length?'<button class="b blk" id="sl-go">Prendre rendez-vous</button>':"");acts.insertAdjacentHTML("afterend",h)}
+  if($("sl-go"))$("sl-go").onclick=function(){$("rdv").scrollIntoView({behavior:"smooth"})};
+  var tk=new URLSearchParams(location.search).get("annuler");
+  if(tk){m.insertAdjacentHTML("afterbegin",'<div class="card"><h3>Annuler mon rendez-vous</h3><p class="m">Confirmez-vous l\'annulation ?</p><button class="b blk" id="sl-a1">Oui, annuler</button><div id="sl-a2" class="m"></div></div>');
+    $("sl-a1").onclick=async function(){var r=await sb.rpc("boutiki_annuler_rdv",{p_token:tk});say("sl-a2",r.error?slErr(r.error):"Rendez-vous annulé.",!!r.error);if(!r.error)this.hidden=true}}
+  function grid(c){$("sl-g").innerHTML=mods.filter(function(x){return!c||x.categorie_id===c}).map(function(x){var i=x.images[0];return'<button class="sl-m" data-m="'+x.id+'">'+(i?'<img loading="lazy" decoding="async" width="400" height="400" alt="'+esc(x.titre)+'" src="'+esc(slUrl(i.miniature))+'">':'<div class="sl-ph">✂</div>')+'<b>'+esc(x.titre)+'</b><span>'+(x.a_partir_de?"À partir de ":"")+fcfa(x.prix)+' • '+hm(x.duree)+'</span></button>'}).join("")}
+  function days(){var t=slToday(),o="";for(var i=0;i<14;i++){var d=slAdd(t,i),g=new Date(d+"T12:00:00Z"),ok=open.indexOf(g.getUTCDay())>=0;o+='<button data-d="'+d+'"'+(ok?"":" disabled")+(st.day===d?' class="sl-on"':"")+'><small>'+g.toLocaleDateString("fr-FR",{weekday:"short",timeZone:"UTC"})+'</small><b>'+g.getUTCDate()+'</b><small>'+g.toLocaleDateString("fr-FR",{month:"short",timeZone:"UTC"})+'</small></button>'}$("sl-days").innerHTML=o}
+  async function slots(){var el=$("sl-sl"),n=++seq;st.slot=null;if(!st.svc||!st.day){el.innerHTML='<p class="m">Choisissez un service et une date.</p>';return}
+    el.innerHTML='<p class="m">Chargement…</p>';var r=await sb.rpc("boutiki_creneaux",{p_slug:s,p_service:st.svc,p_date:st.day,p_modele:st.mod});if(n!==seq)return;var L=r.data||[];
+    el.innerHTML=r.error?'<p class="m err">'+esc(slErr(r.error))+'</p>':L.length?L.map(function(x){return'<button data-s="'+x.debut+'"'+(x.libre?"":' disabled class="sl-x"')+'>'+x.heure+'</button>'}).join(""):'<p class="m">Aucun créneau libre ce jour.</p>'}
+  function rappel(){var x=mods.filter(function(q){return q.id===st.mod})[0];$("sl-mod").innerHTML=x?'<div class="row sl-rp">'+(x.images[0]?slThumb(x.images[0].miniature):"")+'<div class="l"><b>'+esc(x.titre)+'</b><br><span class="m">'+fcfa(x.prix)+' • '+hm(x.duree)+'</span></div><button aria-label="Retirer le modèle" id="sl-rx">✕</button></div>':"";
+    if($("sl-rx"))$("sl-rx").onclick=function(){st.mod=null;rappel();slots()}}
+  function pick(sv,md){st.svc=sv;st.mod=md||null;[].forEach.call(A.querySelectorAll('input[name="slsv"]'),function(i){i.checked=i.value===sv});rappel();slots()}
+  if($("sl-g")){grid("");$("sl-ch").onclick=function(e){var b=e.target.closest("button");if(!b)return;[].forEach.call(this.children,function(c){c.className=c===b?"sl-on":""});grid(b.dataset.c)};
+    $("sl-g").onclick=function(e){var b=e.target.closest("[data-m]");if(b)fiche(b.dataset.m)}}
+  function fiche(id){var x=mods.filter(function(q){return q.id===id})[0];if(!x)return;var o=document.createElement("div");o.className="ov";o.setAttribute("role","dialog");o.setAttribute("aria-modal","true");
+    o.innerHTML='<div class="md sl-fi"><div class="sl-gal">'+x.images.map(function(i){return'<img loading="lazy" decoding="async" alt="'+esc(x.titre)+'" src="'+esc(slUrl(i.chemin))+'">'}).join("")+'</div><h2>'+esc(x.titre)+'</h2><p class="m">'+(x.a_partir_de?"À partir de ":"")+fcfa(x.prix)+' • '+hm(x.duree)+'</p>'+(x.description?'<p>'+esc(x.description)+'</p>':"")+'<button class="b blk" id="sl-rs">Réserver ce modèle</button><button class="b o blk" id="sl-fc">Fermer</button></div>';
+    document.body.appendChild(o);function cl(){o.remove()}o.onclick=function(e){if(e.target===o)cl();var im=e.target.closest(".sl-gal img");if(im)im.classList.toggle("sl-full")};
+    $("sl-fc").onclick=cl;$("sl-rs").onclick=function(){cl();pick(x.service_id,x.id);$("rdv").scrollIntoView({behavior:"smooth"})}}
+  if(!svc.length)return;days();
+  $("sl-sv").onchange=function(e){if(e.target.name==="slsv")pick(e.target.value,null)};
+  $("sl-days").onclick=function(e){var b=e.target.closest("[data-d]");if(!b||b.disabled)return;st.day=b.dataset.d;days();slots()};
+  $("sl-sl").onclick=function(e){var b=e.target.closest("[data-s]");if(!b||b.disabled)return;st.slot=b.dataset.s;[].forEach.call(this.children,function(c){c.classList.toggle("sl-on",c===b)})};
+  $("sl-ok").onclick=async function(){var b=this,n=$("sl-n").value.trim(),p=$("sl-p").value.trim();
+    if(!st.svc||!st.slot)return say("sl-msg","Choisissez un service, une date et un créneau",1);if(n.length<2)return say("sl-msg","Entrez votre nom",1);if(digits(p).length<8)return say("sl-msg","Entrez un numéro de téléphone valide",1);
+    b.disabled=true;say("sl-msg","Envoi…");var r=await sb.rpc("boutiki_reserver",{p_slug:s,p_service:st.svc,p_modele:st.mod,p_debut:st.slot,p_nom:n,p_telephone:p});b.disabled=false;
+    if(r.error){say("sl-msg",slErr(r.error),1);slots();return}
+    var R=r.data,lk=pubUrl(s)+"?annuler="+R.token,msg="Bonjour "+S.nom+", c'est "+n+". Demande de rendez-vous : "+R.service+(R.modele?" ("+R.modele+")":"")+", "+fdt(R.debut)+". Lien d'annulation : "+lk;
+    $("rdv").innerHTML='<div class="card"><h2>Demande envoyée ✓</h2><p><b>'+esc(R.service)+(R.modele?" — "+esc(R.modele):"")+'</b></p><p class="m">'+esc(fdt(R.debut))+' • '+hm(R.duree)+' • '+fcfa(R.prix)+'</p><p class="m">'+esc(tar)+'. Le salon confirmera votre rendez-vous.</p>'+(wa?'<a class="b w blk" target="_blank" rel="noopener" href="https://wa.me/'+wa+'?text='+encodeURIComponent(msg)+'">Prévenir le salon sur WhatsApp</a>':"")+'<button class="b o blk" id="sl-cp">Copier mon lien d\'annulation</button><p class="hn">Gardez ce lien : il permet d\'annuler jusqu\'à '+R.delai_annulation+' h avant le rendez-vous.</p></div>';
+    $("sl-cp").onclick=function(){cp(lk,"Lien d'annulation copié")}};
+}
+
+/* ---------- Tableau de bord : Agenda, Catalogue, Salon ---------- */
+var _dash=dash;
+dash=async function(u){await _dash(u);try{if(page)slDash(u)}catch(e){console.error(e)}};
+function slImg(f,mx,q){return createImageBitmap(f).then(function(im){var k=Math.min(1,mx/Math.max(im.width,im.height)),c=document.createElement("canvas");c.width=Math.round(im.width*k);c.height=Math.round(im.height*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);
+  return new Promise(function(ok){(function t(q){c.toBlob(function(b){b.size<=3e5||q<=.4?ok(b):t(q-.1)},"image/jpeg",q)})(q)})})}
+function slDash(u){
+  var A=$("app"),T=A.querySelector(".tabs"),on=page.type_page==="salon",pid=page.id;if(!T||T.querySelector("[data-sl]"))return;
+  T.insertAdjacentHTML("beforeend",(on?[["r","Agenda"],["k","Catalogue"]]:[]).concat([["s","Salon"]]).map(function(d){return'<button data-t="'+d[0]+'" data-sl="1">'+d[1]+'</button>'}).join(""));
+  var hs='<section data-t="s" hidden><div class="card"><h3>Option Salon</h3><label><input type="checkbox" id="sl-on"'+(on?" checked":"")+'> Activer la prise de rendez-vous et le catalogue</label><p class="hn">Votre page affiche « Prendre rendez-vous » à la place du panier.</p></div>';
+  if(on)hs+='<div class="card"><h3>Rendez-vous gratuit ou payant</h3><label><input type="checkbox" id="tf-p"'+(page.rdv_payant?" checked":"")+'> Rendez-vous payant</label><label for="tf-m">Prix par rendez-vous (FCFA)</label><input id="tf-m" inputmode="numeric" value="'+esc(page.frais_rdv||"")+'"><p class="hn" id="tf-v"></p><button class="b blk" id="tf-s">Enregistrer</button><div id="tf-g" class="m"></div></div>'
+   +'<div class="card"><h3>Services</h3><div id="sv-l"></div><div style="display:flex;gap:6px;margin-top:10px"><input id="sv-n" placeholder="Service" aria-label="Service"><input id="sv-p" placeholder="Prix" inputmode="numeric" style="width:90px" aria-label="Prix"><input id="sv-d" placeholder="Min" inputmode="numeric" style="width:76px" aria-label="Durée en minutes"></div><button class="b blk" id="sv-a">+ Ajouter le service</button><div id="sv-g" class="m"></div></div>'
+   +'<div class="card"><h3>Horaires</h3><p class="hn">Ouverture, fermeture, puis pause facultative.</p><div id="hr-l"></div><button class="b blk" id="hr-s">Enregistrer les horaires</button><div id="hr-g" class="m"></div></div>';
+  hs+='</section>';
+  if(on)hs+='<section data-t="r" hidden><div class="card"><h3>Agenda</h3><div class="sl-nv"><button class="b o" id="ag-p" aria-label="Précédent">‹</button><input type="date" id="ag-d"><button class="b o" id="ag-n" aria-label="Suivant">›</button></div><select id="ag-s" aria-label="Période"><option value="1">Jour</option><option value="7">Semaine</option></select></div><div id="ag-l"></div></section>'
+   +'<section data-t="k" hidden><div class="card"><h3>Catalogue</h3><label><input type="checkbox" id="ct-on"'+(page.catalogue_actif?" checked":"")+'> Afficher le catalogue sur ma page</label><a class="b o blk" target="_blank" rel="noopener" href="'+esc(pubUrl(page.slug))+'">Aperçu de la page publique</a></div><div class="card"><h3>Catégories</h3><div id="ca-l"></div><div style="display:flex;gap:6px;margin-top:10px"><input id="ca-n" maxlength="40" placeholder="Nouvelle catégorie" aria-label="Catégorie"><button class="b" id="ca-a">+</button></div></div><div class="card"><h3>Modèles</h3><div id="mo-l"></div></div><div class="card"><h3>Ajouter un modèle</h3><label for="mo-t">Titre</label><input id="mo-t" maxlength="80"><label for="mo-d">Description (facultative)</label><textarea id="mo-d" rows="2" maxlength="300"></textarea><label for="mo-c">Catégorie</label><select id="mo-c"></select><label for="mo-s">Service</label><select id="mo-s"></select><div style="display:flex;gap:6px"><div style="flex:1"><label for="mo-p">Prix (vide = prix du service)</label><input id="mo-p" inputmode="numeric"></div><div style="flex:1"><label for="mo-m">Durée en min (vide = service)</label><input id="mo-m" inputmode="numeric"></div></div><label><input type="checkbox" id="mo-a"> Afficher « à partir de »</label><label for="mo-f">Photos (5 maximum, JPEG, PNG ou WebP)</label><input id="mo-f" type="file" accept="image/jpeg,image/png,image/webp" multiple><button class="b blk" id="mo-s2">+ Ajouter le modèle</button><div id="mo-g" class="m"></div></div></section>';
+  A.insertAdjacentHTML("beforeend",hs);
+  function go(t){tab=t;[].forEach.call(A.querySelectorAll("section[data-t]"),function(e){e.hidden=e.dataset.t!==t});[].forEach.call(T.querySelectorAll("button"),function(b){b.setAttribute("aria-selected",b.dataset.t===t)});if(t==="r")agLoad();if(t==="k")catLoad();if(t==="s"&&on)svLoad()}
+  [].forEach.call(T.querySelectorAll("[data-sl]"),function(b){b.onclick=function(){go(b.dataset.t)}});
+  $("sl-on").onchange=async function(){var r=await sb.from("lp_pages").update({type_page:this.checked?"salon":"boutique"}).eq("id",pid);if(r.error)return alert(r.error.message);tab="s";dash(u)};
+  if(!on){if(tab==="r"||tab==="k"){tab="a";var t0=T.querySelector('[data-t="a"]');if(t0)t0.click()}else if(tab==="s")go("s");return}
+  var SV=[],CA=[],MO=[];
+  /* tarif */
+  function tv(){var p=$("tf-p").checked,n=parseInt(digits($("tf-m").value),10)||0;$("tf-v").textContent="Le client verra : "+(p?"« Rendez-vous : "+fcfa(n)+" »":"« Réservation gratuite »")+". Le paiement en ligne MAYA-PAY arrive à l'étape 2 : pour l'instant le client règle au salon."}
+  tv();$("tf-p").onchange=tv;$("tf-m").oninput=tv;
+  $("tf-s").onclick=async function(){var r=await sb.rpc("boutiki_reglage_tarif",{p_page:pid,p_payant:$("tf-p").checked,p_montant:parseInt(digits($("tf-m").value),10)||null});say("tf-g",r.error?slErr(r.error):"Enregistré",!!r.error);if(!r.error){page.rdv_payant=$("tf-p").checked;page.frais_rdv=parseInt(digits($("tf-m").value),10)||null}};
+  /* services */
+  async function svLoad(){var r=await sb.from("lp_services").select("*").eq("page_id",pid).order("position").order("created_at");SV=r.data||[];
+    $("sv-l").innerHTML=SV.length?SV.map(function(x){return'<div class="row"><div class="l"><b>'+esc(x.nom)+'</b><br><span class="m">'+hm(x.duree_minutes)+' • '+fcfa(x.prix)+(x.actif?"":" • masqué")+'</span></div><button data-sa="'+x.id+'" aria-label="Afficher ou masquer">'+(x.actif?"👁":"🚫")+'</button><button data-sd="'+x.id+'" aria-label="Supprimer">🗑</button></div>'}).join(""):'<p class="m">Aucun service. Ajoutez le premier ci-dessous.</p>';
+    hrLoad()}
+  $("sv-l").onclick=async function(e){var a=e.target.closest("[data-sa]"),d=e.target.closest("[data-sd]");
+    if(a){var x=SV.filter(function(q){return q.id===a.dataset.sa})[0];await sb.from("lp_services").update({actif:!x.actif}).eq("id",x.id);svLoad()}
+    if(d){if(!confirm("Supprimer ce service ?"))return;var r=await sb.from("lp_services").delete().eq("id",d.dataset.sd);if(r.error){await sb.from("lp_services").update({actif:false}).eq("id",d.dataset.sd);say("sv-g","Service utilisé par des rendez-vous ou modèles : il a été masqué.")}svLoad()}};
+  $("sv-a").onclick=async function(){var n=$("sv-n").value.trim(),p=parseInt(digits($("sv-p").value),10),d=parseInt(digits($("sv-d").value),10);if(!n||isNaN(p)||!(d>=5))return say("sv-g","Nom, prix et durée (5 min minimum) obligatoires",1);
+    var r=await sb.from("lp_services").insert({page_id:pid,nom:n,prix:p,duree_minutes:d,position:SV.length});if(r.error)return say("sv-g",r.error.message,1);$("sv-n").value=$("sv-p").value=$("sv-d").value="";say("sv-g","");svLoad()};
+  /* horaires */
+  async function hrLoad(){var r=await sb.from("lp_horaires").select("*").eq("page_id",pid),H={};(r.data||[]).forEach(function(x){H[x.jour_semaine]=x});
+    $("hr-l").innerHTML=SL_J.map(function(j,i){var x=H[j],t=function(v){return v?String(v).slice(0,5):""};return'<div class="row sl-hr" data-j="'+j+'"><label><input type="checkbox" class="hj"'+(x?" checked":"")+'> '+SL_JN[i]+'</label><input type="time" class="ho" aria-label="Ouverture" value="'+(x?t(x.ouverture):"09:00")+'"><input type="time" class="hf" aria-label="Fermeture" value="'+(x?t(x.fermeture):"17:00")+'"><input type="time" class="hp" aria-label="Début de pause" value="'+(x?t(x.pause_debut):"")+'"><input type="time" class="hq" aria-label="Fin de pause" value="'+(x?t(x.pause_fin):"")+'"></div>'}).join("")}
+  $("hr-s").onclick=async function(){var up=[],del=[],bad="";[].forEach.call($("hr-l").querySelectorAll(".sl-hr"),function(r){var j=+r.dataset.j,o=r.querySelector(".ho").value,f=r.querySelector(".hf").value,p=r.querySelector(".hp").value,q=r.querySelector(".hq").value;
+      if(!r.querySelector(".hj").checked)return del.push(j);if(!o||!f||o>=f||(!!p!==!!q)||(p&&(p>=q||p<o||q>f)))bad=SL_JN[SL_J.indexOf(j)];up.push({page_id:pid,jour_semaine:j,ouverture:o,fermeture:f,pause_debut:p||null,pause_fin:q||null})});
+    if(bad)return say("hr-g","Horaires invalides : "+bad,1);var r1=up.length?await sb.from("lp_horaires").upsert(up,{onConflict:"page_id,jour_semaine"}):{},r2=del.length?await sb.from("lp_horaires").delete().eq("page_id",pid).in("jour_semaine",del):{};
+    var er=r1.error||r2.error;say("hr-g",er?er.message:"Horaires enregistrés",!!er)};
+  /* agenda */
+  var ag={d:slToday()};$("ag-d").value=ag.d;
+  async function agLoad(){var n=+$("ag-s").value,el=$("ag-l");el.innerHTML='<p class="m">Chargement…</p>';var r=await sb.rpc("boutiki_agenda",{p_page:pid,p_debut:ag.d+"T00:00:00Z",p_fin:slAdd(ag.d,n)+"T00:00:00Z"});if(r.error){el.innerHTML='<p class="m err">'+esc(slErr(r.error))+'</p>';return}
+    var L=r.data||[];el.innerHTML=L.length?L.map(function(x){var s=SL_ST[x.statut]||[x.statut,"#8a93ab"],b="";
+      if(x.statut==="en_attente")b='<button class="sl-a" data-r="'+x.id+'" data-s="confirme">Confirmer</button><button class="sl-a sl-n" data-r="'+x.id+'" data-s="annule">Annuler</button>';
+      if(x.statut==="confirme")b='<button class="sl-a sl-n" data-r="'+x.id+'" data-s="annule">Annuler</button><button class="sl-a" data-r="'+x.id+'" data-s="honore">Client venu</button><button class="sl-a sl-n" data-r="'+x.id+'" data-s="absent">Absent</button>';
+      var wm="Bonjour "+x.nom_client+", votre rendez-vous "+(x.modele||x.service)+" le "+fdt(x.debut)+" est "+(x.statut==="annule"?"annulé":"confirmé")+". "+page.nom;
+      return'<div class="card sl-ag" style="border-left:4px solid '+s[1]+'"><div class="sl-r"><b>'+(n>1?esc(new Date(x.debut).toLocaleDateString("fr-FR",{timeZone:SL_TZ,weekday:"short",day:"numeric"}))+" ":"")+fh(x.debut)+" – "+fh(x.fin)+'</b><span class="sl-b" style="background:'+s[1]+'">'+s[0]+'</span></div><div class="row" style="border:0;padding:6px 0;background:none">'+(x.miniature?slThumb(x.miniature):"")+'<div class="l"><b>'+esc(x.nom_client)+'</b><br><span class="m">'+esc(x.modele?x.modele+" • ":"")+esc(x.service)+' • '+fcfa(x.prix)+'</span></div></div><div class="sl-ac">'+b+'<a class="sl-a" target="_blank" rel="noopener" href="https://wa.me/'+wnum(x.telephone)+'?text='+encodeURIComponent(wm)+'">WhatsApp</a></div></div>'}).join(""):'<p class="m">Aucun rendez-vous sur cette période.</p>'}
+  $("ag-l").onclick=async function(e){var b=e.target.closest("[data-r]");if(!b)return;if(b.dataset.s==="annule"&&!confirm("Annuler ce rendez-vous ?"))return;b.disabled=true;var r=await sb.rpc("boutiki_statut_rdv",{p_rdv:b.dataset.r,p_statut:b.dataset.s});if(r.error)alert(slErr(r.error));agLoad()};
+  $("ag-d").onchange=function(){if(this.value){ag.d=this.value;agLoad()}};$("ag-s").onchange=agLoad;
+  $("ag-p").onclick=function(){ag.d=slAdd(ag.d,-(+$("ag-s").value));$("ag-d").value=ag.d;agLoad()};$("ag-n").onclick=function(){ag.d=slAdd(ag.d,+$("ag-s").value);$("ag-d").value=ag.d;agLoad()};
+  /* catalogue */
+  $("ct-on").onchange=async function(){await sb.from("lp_pages").update({catalogue_actif:this.checked}).eq("id",pid)};
+  async function catLoad(){var q=await Promise.all([sb.from("lp_categories").select("*").eq("page_id",pid).order("ordre").order("created_at"),sb.from("lp_services").select("id,nom,actif").eq("page_id",pid).order("position"),sb.from("lp_modeles").select("*, lp_modeles_images(chemin_stockage,chemin_miniature,ordre,principale)").eq("page_id",pid).order("ordre").order("created_at")]);
+    CA=q[0].data||[];SV=q[1].data||SV;MO=q[2].data||[];
+    $("ca-l").innerHTML=CA.map(function(c){return'<div class="row"><div class="l">'+esc(c.nom)+'</div><button data-cd="'+c.id+'" aria-label="Supprimer">🗑</button></div>'}).join("")||'<p class="m">Aucune catégorie (facultatif).</p>';
+    $("mo-c").innerHTML='<option value="">Sans catégorie</option>'+CA.map(function(c){return'<option value="'+c.id+'">'+esc(c.nom)+'</option>'}).join("");
+    $("mo-s").innerHTML=SV.filter(function(s){return s.actif!==false}).map(function(s){return'<option value="'+s.id+'">'+esc(s.nom)+'</option>'}).join("");
+    $("mo-l").innerHTML=MO.map(function(x){var im=(x.lp_modeles_images||[]).slice().sort(function(a,b){return(b.principale-a.principale)||(a.ordre-b.ordre)})[0];return'<div class="row">'+(im?slThumb(im.chemin_miniature||im.chemin_stockage):"")+'<div class="l"><b>'+esc(x.titre)+'</b><br><span class="m">'+(x.prix!=null?fcfa(x.prix):"prix du service")+(x.actif?"":" • masqué")+'</span></div><button data-mv="'+x.id+'" aria-label="Afficher ou masquer">'+(x.actif?"👁":"🚫")+'</button><button data-md="'+x.id+'" aria-label="Supprimer">🗑</button></div>'}).join("")||'<p class="m">Aucun modèle pour le moment.</p>'}
+  $("ca-a").onclick=async function(){var n=$("ca-n").value.trim();if(!n)return;var r=await sb.from("lp_categories").insert({page_id:pid,nom:n,ordre:CA.length});if(r.error)return say("mo-g",slErr(r.error),1);$("ca-n").value="";catLoad()};
+  $("ca-l").onclick=async function(e){var d=e.target.closest("[data-cd]");if(d&&confirm("Supprimer cette catégorie ? Les modèles sont conservés.")){await sb.from("lp_categories").delete().eq("id",d.dataset.cd);catLoad()}};
+  $("mo-l").onclick=async function(e){var v=e.target.closest("[data-mv]"),d=e.target.closest("[data-md]");
+    if(v){var x=MO.filter(function(q){return q.id===v.dataset.mv})[0];await sb.rpc("boutiki_modele_masquer",{p_modele:x.id,p_actif:!x.actif});catLoad()}
+    if(d&&confirm("Supprimer ce modèle et ses photos ?")){var r=await sb.rpc("boutiki_modele_supprimer",{p_modele:d.dataset.md});if(r.error)return say("mo-g",slErr(r.error),1);var P=r.data.chemins||[];if(P.length)sb.storage.from(SL_BK).remove(P);if(r.data.masque)say("mo-g","Ce modèle a des rendez-vous : il est masqué, pas supprimé.");catLoad()}};
+  $("mo-s2").onclick=async function(){var b=this,t=$("mo-t").value.trim(),F=[].slice.call($("mo-f").files).slice(0,5);
+    if(t.length<2)return say("mo-g","Entrez un titre",1);if(!$("mo-s").value)return say("mo-g","Ajoutez d'abord un service (onglet Salon)",1);
+    for(var i=0;i<F.length;i++)if(!/^image\/(jpeg|png|webp)$/.test(F[i].type)||F[i].size>5*1048576)return say("mo-g","Photos : JPEG, PNG ou WebP, 5 Mo maximum",1);
+    b.disabled=true;say("mo-g","Enregistrement…");var up=[];
+    try{var pr=$("mo-p").value.trim(),du=$("mo-m").value.trim(),r=await sb.rpc("boutiki_modele_enregistrer",{p_page:pid,p_id:null,p_titre:t,p_description:$("mo-d").value,p_categorie:$("mo-c").value||null,p_service:$("mo-s").value,p_prix:pr?parseInt(digits(pr),10):null,p_a_partir:$("mo-a").checked,p_duree:du?parseInt(digits(du),10):null,p_acompte:null,p_ordre:MO.length,p_actif:true});if(r.error)throw r.error;
+      for(var k=0;k<F.length;k++){say("mo-g","Envoi de la photo "+(k+1)+"/"+F.length+"…");var id=(crypto.randomUUID?crypto.randomUUID():Date.now()+""+k),g=pid+"/"+id+".jpg",tp=pid+"/"+id+"_t.jpg",
+        bg=await slImg(F[k],1200,.82),bt=await slImg(F[k],400,.75),u1=await sb.storage.from(SL_BK).upload(g,bg,{contentType:"image/jpeg"});if(u1.error)throw u1.error;up.push(g);
+        var u2=await sb.storage.from(SL_BK).upload(tp,bt,{contentType:"image/jpeg"});if(u2.error)throw u2.error;up.push(tp);
+        var ri=await sb.from("lp_modeles_images").insert({modele_id:r.data,page_id:pid,chemin_stockage:g,chemin_miniature:tp,ordre:k,principale:k===0});if(ri.error)throw ri.error}
+      ["mo-t","mo-d","mo-p","mo-m","mo-f"].forEach(function(i){$(i).value=""});$("mo-a").checked=false;say("mo-g","Modèle ajouté ✓")}
+    catch(e){say("mo-g",slErr(e),1)}b.disabled=false;catLoad()};
+  if(tab&&"rks".indexOf(tab)>=0)go(tab);
 }
 window.addEventListener("hashchange",route);route();
 
